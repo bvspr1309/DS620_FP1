@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 portfolio_file = "portfolio.csv"
 
@@ -82,7 +84,23 @@ def main():
     if not portfolio:
         st.info("Add stocks to the portfolio to generate the dashboard.")
     else:
-        st.write("Portfolio Dashboard will be displayed here.")
+        st.subheader("Portfolio Value")
+        portfolio_value = sum(stock_info['Amount'] for stock_info in portfolio.values())
+        st.write(f"The total value of your portfolio is: ${portfolio_value:.2f}")
+
+        st.subheader("Portfolio Composition")
+        composition_data = pd.DataFrame.from_dict(portfolio, orient='index')
+        composition_data['Percentage'] = composition_data['Amount'] / portfolio_value * 100
+        st.bar_chart(composition_data['Percentage'])
+
+        st.subheader("Portfolio Performance")
+        performance_data = calculate_performance()
+        performance_df = pd.DataFrame(performance_data)
+        st.bar_chart(performance_df.set_index('Stock'))
+
+        st.subheader("Portfolio Risk")
+        risk_data = composition_data.merge(performance_df, on='Stock')
+        st.bar_chart(risk_data.set_index('Stock')['Performance'])
 
     # Save the portfolio data when the application stops
     save_portfolio()
