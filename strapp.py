@@ -5,7 +5,7 @@ import seaborn as sns
 
 portfolio_file = "portfolio.csv"
 
-# Read stock data from CSV
+# Read stock data from CSVasdfasdfasdfasdf
 try:
     stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
 except UnicodeDecodeError:
