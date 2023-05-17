@@ -2,6 +2,3 @@ matplotlib
 pandas
 numpy
 streamlit
-requests
-seaborn
-io
