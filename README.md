@@ -1,4 +1,4 @@
-# DS620_FP
+# DS620_FP1
 Data Visualization final project
 Financial porfolio apps are in high demand in sotck market.
 
