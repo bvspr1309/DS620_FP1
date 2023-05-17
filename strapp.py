@@ -2,8 +2,11 @@ import streamlit as st
 import pandas as pd
 
 # Read stock data from CSV
-stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
-
+try:
+    stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
+except UnicodeDecodeError:
+    st.error("Error: Unable to read the CSV file. Please check the file encoding and try again.")
+    st.stop()
 # Create an empty portfolio dictionary to store stock information
 portfolio = {}
 
