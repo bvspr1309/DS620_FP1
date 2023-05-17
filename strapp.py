@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import io
 # Read stock data from CSV
-stock_data = io.open(stock_data.csv, encoding='latin-1')
+stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
 
 # Create an empty portfolio dictionary to store stock information
 portfolio = {}
