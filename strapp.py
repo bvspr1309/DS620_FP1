@@ -25,7 +25,7 @@ def calculate_performance():
     portfolio_performance = []
     for stock_symbol, stock_info in portfolio.items():
         # Get the current price of the stock from the stock_data DataFrame
-        current_price = stock_data[stock_data['Symbol'] == stock_symbol]['Price'].values[0]
+        current_price = stock_data[stock_data['Symbol'] == stock_symbol]['Currentprice'].values[0]
         performance = (current_price - (stock_info['Amount'] / stock_info['Quantity'])) / (stock_info['Amount'] / stock_info['Quantity'])
         portfolio_performance.append({'Stock': stock_symbol, 'Performance': performance})
     return portfolio_performance
