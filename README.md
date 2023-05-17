@@ -1,4 +1,6 @@
 # DS620_FP1
+##project by Venkata Sai Praneeth Bommireddy, Hiten Mistry, Bijnaben Amarabhai Chandera
+
 Data Visualization final project
 Financial porfolio apps are in high demand in sotck market.
 
