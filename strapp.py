@@ -1,14 +1,23 @@
 import streamlit as st
 import pandas as pd
 
+portfolio_file = "portfolio.csv"
+
 # Read stock data from CSV
 try:
     stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
 except UnicodeDecodeError:
     st.error("Error: Unable to read the CSV file. Please check the file encoding and try again.")
     st.stop()
-# Create an empty portfolio dictionary to store stock information
-portfolio = {}
+
+# Load the portfolio data from CSV file or create an empty dictionary
+if st.sidebar.checkbox("Load Portfolio"):
+    try:
+        portfolio = pd.read_csv(portfolio_file).set_index('Stock').to_dict(orient='index')
+    except FileNotFoundError:
+        portfolio = {}
+else:
+    portfolio = {}
 
 def add_to_portfolio(stock_symbol, quantity, amount):
     """Add a stock to the portfolio."""
@@ -29,6 +38,12 @@ def calculate_performance():
         performance = (current_price - (stock_info['Amount'] / stock_info['Quantity'])) / (stock_info['Amount'] / stock_info['Quantity'])
         portfolio_performance.append({'Stock': stock_symbol, 'Performance': performance})
     return portfolio_performance
+
+def save_portfolio():
+    """Save the portfolio data to a CSV file."""
+    portfolio_df = pd.DataFrame.from_dict(portfolio, orient='index').reset_index()
+    portfolio_df.columns = ['Stock', 'Quantity', 'Amount']
+    portfolio_df.to_csv(portfolio_file, index=False)
 
 def main():
     st.title("Financial Portfolio Dashboard")
@@ -68,6 +83,9 @@ def main():
         st.info("Add stocks to the portfolio to generate the dashboard.")
     else:
         st.write("Portfolio Dashboard will be displayed here.")
+
+    # Save the portfolio data when the application stops
+    save_portfolio()
 
 if __name__ == '__main__':
     main()
