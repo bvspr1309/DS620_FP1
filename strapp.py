@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import io
+
 # Read stock data from CSV
 stock_data = pd.read_csv('stock_data.csv', encoding='utf-8')
 
